@@ -1,0 +1,44 @@
+body {
+    background-image: url("http://supernovathemes.com/wp-content/themes/supernovathemes/images/bg/b43.png");
+}
+
+h1 {
+    font-size: 5em;
+    color: white;
+    user-select: none;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#header {
+    height: 15em;
+    background-image: url("https://www.immunology.org/sites/default/files/Blu%20sky%20clouds.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 2px solid black;
+    margin-bottom: 2em;
+}
+
+.blog-icon {
+    width: 100%;
+}
+
+#blog {
+    background-color: rgb(255, 255, 255);
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid #ced4da;
+}
+
+#blog-card {
+    margin-top: 1em;
+}
+
+#scroll-div {
+    background-image: url("http://supernovathemes.com/wp-content/themes/supernovathemes/images/bg/b5.png");
+    margin-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: 1px solid #ced4da;
+    height: 536px;
+    overflow-y: scroll;
+}

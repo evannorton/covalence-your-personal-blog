@@ -1,18 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import HelloWorld from './hello';
-import GoodbyeWorld from './goodbye';
+import Header from "./header";
+import Blogs from "./blogs";
+import Blog from "./blog";
 
-class Navigation extends Component {
+class App extends Component {
 
     render() {
         return (
             <Router>
                 <Fragment>
-                    <Link to="/goodbye">Goodbye</Link>
+                    <Header />
                     <Switch>
-                        <Route exact path="/" component={HelloWorld} />
-                        <Route path="/goodbye" component={GoodbyeWorld} />
+                        <Route exact path="/" component={Blogs} />
+                        <Route exact path="/blogs/:id" component={Blog} />
                     </Switch>
                 </Fragment>
             </Router>
@@ -20,4 +21,4 @@ class Navigation extends Component {
     }
 }
 
-export default Navigation;
+export default App;

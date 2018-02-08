@@ -3,25 +3,26 @@ import mysql from 'mysql';
 let pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
-    user: 'exampleUser',
-    password: 'password',
-    database: 'InClassExample'
+    user: 'blogapp',
+    password: 'enort',
+    database: 'blog',
+    port: 4000
 });
 
 function executeQuery(sql, args = []) {
     return getConnection()
-    .then((connection) => {
-        return new Promise((resolve, reject) => {
-            connection.query(sql, args, (err, result) => {
-                connection.release();
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
+        .then((connection) => {
+            return new Promise((resolve, reject) => {
+                connection.query(sql, args, (err, result) => {
+                    connection.release();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
             });
         });
-    });
 }
 
 function callProcedure(procedureName, args = []) {
@@ -32,23 +33,23 @@ function callProcedure(procedureName, args = []) {
 
 function rows(procedureName, args = []) {
     return callProcedure(procedureName, args)
-    .then((resultsets) => {
-        return resultsets[0];
-    });
+        .then((resultsets) => {
+            return resultsets[0];
+        });
 }
 
 function row(procedureName, args = []) {
     return callProcedure(procedureName, args)
-    .then((resultsets) => {
-        return resultsets[0][0];
-    });
+        .then((resultsets) => {
+            return resultsets[0][0];
+        });
 }
 
 function empty(procedureName, args = []) {
     return callProcedure(procedureName, args)
-    .then(() => {
-        return;
-    });
+        .then(() => {
+            return;
+        });
 }
 
 function generatePlaceholders(args = []) {

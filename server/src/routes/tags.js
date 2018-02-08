@@ -3,7 +3,7 @@ import Table from "../table";
 
 let router = Router();
 
-let blogs = new Table("Blogs");
+let tags = new Table("Tags");
 
 
 
@@ -12,17 +12,17 @@ router.get('/:id?', (req, res) => {
     let id = req.params.id;
 
     if (id) {
-        blogs.getOne(id)
-            .then(blog => {
-                res.send(blog)
+        tags.getOne(id)
+            .then(tag => {
+                res.send(tag)
             })
             .catch((err) => {
                 console.log(err);
             });
     } else {
-        blogs.getAll()
-            .then(blogs => {
-                res.send(blogs);
+        tags.getAll()
+            .then(tags => {
+                res.send(tags);
             })
             .catch((err) => {
                 console.log(err)
@@ -32,20 +32,11 @@ router.get('/:id?', (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let blog = req.body;
+    let tag = req.body;
 
-    blogs.insert(blog)
+    tags.insert(tag)
         .then(id => {
             res.send(id);
-        });
-});
-
-router.delete("/:id", (req, res) => {
-    let id = req.params.id
-
-    blogs.delete(id)
-        .then(() => {
-            res.sendStatus(200);
         });
 });
 

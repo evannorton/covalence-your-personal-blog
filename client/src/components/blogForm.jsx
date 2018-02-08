@@ -57,13 +57,15 @@ class blogForm extends Component {
                             id="blogTags"
                             className="form-control"
                             placeholder="Insert tags seperated by semicolons ( ; )"
-                            rows="2">
+                            rows="1">
                         </textarea>
                     </div>
                     <button
                         onClick={() => {
                             if (this.state.title && this.state.content && this.state.tags) {
-                                this.props.postBlog(this.state.title, this.state.content, this.state.tags)
+                                this.props.postBlog(this.state.title, this.state.content, this.state.tags);
+                            } else {
+                                alert("You must enter a title, body text and tags.");
                             }
                         }}
                         type="button"

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from 'react-router-dom';
 
 class Blog extends Component {
     constructor(props) {
@@ -22,6 +23,16 @@ class Blog extends Component {
             });
     }
 
+    deleteBlog(id) {
+        console.log("hey");
+        fetch(`/api/blogs/${id}`, {
+            method: "DELETE",
+        }).then(() => {
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     render() {
         return (
             <div id="blog" className="container-fluid w-75">
@@ -32,7 +43,13 @@ class Blog extends Component {
                         <p>{this.state.content}</p>
                     </div>
                     <div className="col-1">
-                        <img class="blog-icon" src="https://d30y9cdsu7xlg0.cloudfront.net/png/3823-200.png" alt="" />
+                        <Link to="/">
+                            <img
+                                onClick={() => { this.deleteBlog(this.state.id) }}
+                                className="blog-icon"
+                                src="https://d30y9cdsu7xlg0.cloudfront.net/png/3823-200.png"
+                                alt="delete" />
+                        </Link>
                     </div>
                 </div>
             </div>

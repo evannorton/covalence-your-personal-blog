@@ -1,20 +1,27 @@
 import { Router } from 'express';
 
-let people = [
-    {
-        name: 'Jackson',
-        age: 25
-    },
-    {
-        name: 'Matt',
-        age: 40
-    }
-];
-
 let router = Router();
 
+let people = new Table("people");
+
+
+
 router.get('/', (req, res) => {
-    res.json(people);
+
+    people.getAll()
+        .then(users => {
+            res.json(people);
+        });
+
+});
+
+router.post("/", (req, res) => {
+    let person = req.body;
+
+    people.insert(person)
+        .then(id => {
+            res.json(id);
+        });
 });
 
 export default router;

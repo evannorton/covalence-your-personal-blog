@@ -12,11 +12,13 @@ class Blog extends Component {
         fetch(`/api/blogs/${this.props.match.params.id}`)
             .then(res => res.json())
             .then(blog => {
+                console.log(blog);
                 this.setState({
                     id: blog.id,
                     title: blog.title,
                     content: blog.content,
-                    date: blog._created
+                    date: blog._created,
+                    tags: tags
                 });
             }).catch((err) => {
                 console.log(err);

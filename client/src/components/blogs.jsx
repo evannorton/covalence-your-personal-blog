@@ -10,7 +10,8 @@ class Blogs extends Component {
         super(props);
         this.state = {
             blogs: [],
-            tags: []
+            tags: [],
+            blogtags: []
         }
     }
 
@@ -41,53 +42,15 @@ class Blogs extends Component {
             },
             body: JSON.stringify({
                 title,
-                content
+                content,
+                tags
             })
         }).then(() => {
             console.log("Blog posted!")
             return this.getBlogs();
-        }).then((blogs) => {
-            this.postTags(tags, blogs);
         }).catch((err) => {
             console.log(err);
         });
-    }
-
-    getTags() {
-        return fetch("/api/tags/")
-            .then((response) => {
-                return response.json();
-            }).then((tags) => {
-                console.log(tags);
-                this.setState({
-                    tags
-                });
-                return tags;
-            }).catch((err) => {
-                console.log(err);
-            });
-    }
-
-    postTags(tags, blogs) {
-        tags = tags.split(";");
-        for (let i = 0; i < tags.length; i++) {
-            fetch("/api/tags/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: tags[i]
-                })
-            }).then(() => {
-                    console.log("Tag posted!");
-                    return this.getTags();
-                }).then(() => {
-                    this.postBlogTags(tags, blogs);
-                }).catch((err) => {
-                    console.log(err);
-                });
-        }
     }
 
     render() {

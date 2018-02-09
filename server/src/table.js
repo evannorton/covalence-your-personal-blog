@@ -14,6 +14,17 @@ class Table {
             .then((results) => results[0]);
     }
 
+    getBlogTag(blogid) {
+        let sql = `CALL spBlogTags(${blogid});`;
+        return executeQuery(sql, [blogid])
+            .then((results) => results[0]);
+    }
+
+    getAllBlogTags() {
+        let sql = `CALL spAllBlogTags();`;
+        return executeQuery(sql);
+    }
+
     getAll() {
         let sql = `SELECT * FROM ${this.tableName} ORDER BY _created DESC`;
         return executeQuery(sql);

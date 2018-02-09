@@ -4,7 +4,8 @@ import Table from "../table";
 let router = Router();
 
 let blogs = new Table("Blogs");
-
+let tags = new Table("Tags");
+let blogtags = new Table("BlogTags");
 
 
 router.get('/:id?', (req, res) => {
@@ -13,7 +14,12 @@ router.get('/:id?', (req, res) => {
 
     if (id) {
         blogs.getOne(id)
-            .then(blog => {
+            .then((blog) => {
+                return tags.getBlogTag(id).then((tags) => {
+                    blog.tags = tags;
+                    return blog;
+                });
+            }).then((blog) => {
                 res.send(blog)
             })
             .catch((err) => {
@@ -21,7 +27,7 @@ router.get('/:id?', (req, res) => {
             });
     } else {
         blogs.getAll()
-            .then(blogs => {
+            .then((blogs) => {
                 res.send(blogs);
             })
             .catch((err) => {
@@ -32,11 +38,45 @@ router.get('/:id?', (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let blog = req.body;
+
+    let blog = {
+        title: req.body.title,
+        content: req.body.content
+    }
+
+    let tagsArr = req.body.tags;
 
     blogs.insert(blog)
-        .then(id => {
-            res.send(id);
+        .then((blogid) => {
+            blogid = blogid.id;
+            return Promise.all(tagsArr.map((tag) => {
+                return tags.find({ name: tag })
+                    .then((duplicates) => {
+                        //if tag already exists
+                        if (duplicates.length > 0) {
+                            return duplicates[0];
+                        }
+                        //if tag does not already exist
+                        else {
+                            return tags.insert({ name: tag });
+                        }
+                    })
+                    .then((tagid) => {
+                        tagid = tagid.id;
+                        return blogtags.insert(
+                            {
+                                blogid,
+                                tagid
+                            }
+                        );
+                    });
+            }));
+        })
+        .then(() => {
+            res.sendStatus(200);
+        }).catch((e) => {
+            console.log(e);
+            res.sendStatus(500);
         });
 });
 

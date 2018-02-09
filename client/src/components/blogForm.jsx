@@ -22,6 +22,25 @@ class blogForm extends Component {
         this.setState({ tags });
     }
 
+    convertTags() {
+        let tags = this.state.tags.split(";");
+        let hash = {};
+
+        tags = tags.filter((tag) => {
+            tag = tag.toLowerCase();
+
+            if (!!hash[tag]) {
+                return false;
+            }
+
+            hash[tag] = true;
+
+            return true;
+        })
+
+        return tags;
+    }
+
     render() {
         return (
             <div className="col-8">
@@ -63,7 +82,7 @@ class blogForm extends Component {
                     <button
                         onClick={() => {
                             if (this.state.title && this.state.content && this.state.tags) {
-                                this.props.postBlog(this.state.title, this.state.content, this.state.tags);
+                                this.props.postBlog(this.state.title, this.state.content, this.convertTags());
                             } else {
                                 alert("You must enter a title, body text and tags.");
                             }

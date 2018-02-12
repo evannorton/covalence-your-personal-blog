@@ -18,7 +18,7 @@ router.get('/:id?', (req, res) => {
                 return tags.getBlogTag(id).then((tags) => {
                     blog.tags = tags;
                     return blog;
-                });
+                })
             }).then((blog) => {
                 res.send(blog)
             })
@@ -45,6 +45,12 @@ router.post("/", (req, res) => {
     }
 
     let tagsArr = req.body.tags;
+
+    for (let i = 0; i < tagsArr.length; i++) {
+        if (tagsArr[i] === "") {
+            tagsArr.splice(i, i + 1);
+        }
+    }
 
     blogs.insert(blog)
         .then((blogid) => {

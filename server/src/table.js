@@ -9,9 +9,14 @@ class Table {
     }
 
     getOne(id) {
-        let sql = `SELECT * FROM ${this.tableName} WHERE id = ${id};`;
+        let sql = `SELECT title, content, id, DATE_FORMAT(_created, "%M %D, %Y") as _created FROM ${this.tableName} WHERE id = ${id};`;
         return executeQuery(sql, [id])
             .then((results) => results[0]);
+    }
+
+    getAll() {
+        let sql = `SELECT title, content, id, DATE_FORMAT(_created, "%M %D, %Y") as _created FROM ${this.tableName} ORDER BY id DESC`;
+        return executeQuery(sql);
     }
 
     getBlogTag(blogid) {
@@ -22,11 +27,6 @@ class Table {
 
     getAllBlogTags() {
         let sql = `CALL spAllBlogTags();`;
-        return executeQuery(sql);
-    }
-
-    getAll() {
-        let sql = `SELECT * FROM ${this.tableName} ORDER BY _created DESC`;
         return executeQuery(sql);
     }
 

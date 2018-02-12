@@ -24,7 +24,6 @@ class Blogs extends Component {
             .then((response) => {
                 return response.json();
             }).then((blogs) => {
-                console.log(blogs);
                 this.setState({
                     blogs
                 });
@@ -46,7 +45,6 @@ class Blogs extends Component {
                 tags
             })
         }).then(() => {
-            console.log("Blog posted!")
             return this.getBlogs();
         }).catch((err) => {
             console.log(err);

@@ -9,6 +9,20 @@ h1 {
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
+.blog-icon {
+    width: 100%;
+    cursor: pointer;
+}
+
+.tag-text {
+    background-color: lightgray;
+    border: 1px solid darkgrey;
+    padding: 1em;
+    font-size: 1em;
+    margin-left: .1em;
+    margin-right: .1em;
+}
+
 #header {
     height: 15em;
     background-image: url("https://www.immunology.org/sites/default/files/Blu%20sky%20clouds.jpg");
@@ -16,11 +30,6 @@ h1 {
     background-size: cover;
     border-bottom: 2px solid black;
     margin-bottom: 2em;
-}
-
-.blog-icon {
-    width: 100%;
-    cursor: pointer;
 }
 
 #blog {
@@ -42,4 +51,9 @@ h1 {
     border: 1px solid #ced4da;
     height: 536px;
     overflow-y: scroll;
+}
+
+#tags-container {
+    margin-right: .25em;
+    margin-left: .25em;
 }

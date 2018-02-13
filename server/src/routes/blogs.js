@@ -13,7 +13,7 @@ router.get('/:id?', (req, res) => {
     let id = req.params.id;
 
     if (id) {
-        blogs.getOne(id)
+        blogs.getBlog(id)
             .then((blog) => {
                 return tags.getBlogTag(id).then((tags) => {
                     blog.tags = tags;
@@ -26,7 +26,7 @@ router.get('/:id?', (req, res) => {
                 console.log(err);
             });
     } else {
-        blogs.getAll()
+        blogs.getBlogs()
             .then((blogs) => {
                 res.send(blogs);
             })

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BlogForm from "./blogForm";
 import BlogList from "./blogList";
+import blogServices from "../services/blogs";
 import "isomorphic-fetch";
 import "es6-promise";
 
@@ -20,10 +21,8 @@ class Blogs extends Component {
     }
 
     getBlogs() {
-        return fetch("/api/blogs/")
-            .then((response) => {
-                return response.json();
-            }).then((blogs) => {
+        blogServices.getBlogs()
+            .then((blogs) => {
                 this.setState({
                     blogs
                 });
@@ -31,9 +30,29 @@ class Blogs extends Component {
             }).catch((err) => {
                 console.log(err);
             });
+        /*
+    return fetch("/api/blogs/")
+        .then((response) => {
+            return response.json();
+        }).then((blogs) => {
+            this.setState({
+                blogs
+            });
+            return blogs;
+        }).catch((err) => {
+            console.log(err);
+        });
+        */
     }
 
     postBlog(title, content, tags) {
+        blogServices.postBlog({ title, content, tags })
+            .then(() => {
+                return this.getBlogs();
+            }).catch((err) => {
+                console.log(err);
+            });
+        /*
         fetch("/api/blogs/", {
             method: "POST",
             headers: {
@@ -49,6 +68,7 @@ class Blogs extends Component {
         }).catch((err) => {
             console.log(err);
         });
+        */
     }
 
     render() {

@@ -5,7 +5,6 @@ import Blogs from "./blogs";
 import Blog from "./blog";
 import Login from "./auth/login";
 import Logout from "./auth/logout";
-import AuthButton from "./auth/authButton";
 
 class App extends Component {
 
@@ -13,13 +12,11 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
-                    <AuthButton />
                     <Header />
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
                         <Route exact path="/" component={Blogs} />
-
                         <Route exact path="/blogs/:id" component={Blog} />
                     </Switch>
                 </Fragment>

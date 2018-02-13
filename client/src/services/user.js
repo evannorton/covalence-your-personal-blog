@@ -54,5 +54,4 @@ function me() {
     return baseService.get('/api/users/me');
 }
 
-let userServices = { isLoggedIn, checkLogin, login, logout };
-export default userServices;
+export { isLoggedIn, checkLogin, login, logout };

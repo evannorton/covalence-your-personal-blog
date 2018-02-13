@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isLoggedIn } from "../services/user";
+import userServices from "../services/user";
 
 class blogForm extends Component {
     constructor(props) {
@@ -82,17 +82,11 @@ class blogForm extends Component {
                     </div>
                     <button
                         onClick={() => {
-                            console.log(isLoggedIn());
-                            if (isLoggedIn()) {
-                                if (this.state.title && this.state.content && this.state.tags) {
-                                    this.props.postBlog(this.state.title, this.state.content, this.convertTags());
-                                } else {
-                                    alert("Enter a title, body text and tags.");
-                                }
+                            if (this.state.title && this.state.content && this.state.tags) {
+                                this.props.postBlog(this.state.title, this.state.content, this.convertTags());
                             } else {
-                                alert("Log in to make a blog post.");
+                                alert("You must enter a title, body text and tags.");
                             }
-
                         }}
                         type="button"
                         className="btn btn-primary btn-block"

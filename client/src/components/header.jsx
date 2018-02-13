@@ -8,7 +8,7 @@ class Header extends Component {
                 <div id="header" className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
                         <Link to={"/"} style={{ textDecoration: 'none' }}>
-                            <h1>
+                            <h1 id="header-text">
                                 SkyBlogs.com
                             </h1>
                         </Link>

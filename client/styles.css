@@ -55,10 +55,11 @@ a:hover {
 #scroll-div {
     background-image: url("http://supernovathemes.com/wp-content/themes/supernovathemes/images/bg/b5.png");
     margin-top: 1em;
+    margin-bottom: 2em;
     padding-left: 1em;
     padding-right: 1em;
     border: 1px solid #ced4da;
-    height: 536px;
+    height: 31.5em;
     overflow-y: scroll;
 }
 
@@ -68,5 +69,5 @@ a:hover {
 }
 
 #welcome {
-    height: 38em;
+    height: 35.39em;
 }

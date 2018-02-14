@@ -86,12 +86,25 @@ router.post("/", (req, res) => {
         });
 });
 
+router.put("/:id", (req, res) => {
+    let id = req.params.id;
+
+    blogs.update(id, req.body)
+        .then(() => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            console.log(err);
+        });
+});
+
 router.delete("/:id", (req, res) => {
-    let id = req.params.id
+    let id = req.params.id;
 
     blogs.delete(id)
         .then(() => {
             res.sendStatus(200);
+        }).catch((err) => {
+            console.log(err);
         });
 });
 

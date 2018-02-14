@@ -11,30 +11,20 @@ class Login extends Component {
             email: '',
             password: '',
             feedbackMessage: '',
-            checkingLogin: true
         };
     }
 
-    componentDidMount() {
-        userService.checkLogin()
-            .then((loggedIn) => {
-                if (loggedIn) {
-                    this.setState({ redirectToReferrer: true, checkingLogin: false });
-                } else {
-                    this.setState({ checkingLogin: false });
-                }
-            });
-    }
-
-    login(e) {
+    signup(e) {
         e.preventDefault();
-        userService.login(this.state.email, this.state.password)
-            .then(() => {
-                this.setState({ redirectToReferrer: true });
-            }).catch((err) => {
-                if (err.message) {
-                    this.setState({ feedbackMessage: err.message });
+        userService.signup(this.state.email, this.state.password)
+            .then((isSuccessful) => {
+                if (isSuccessful) {
+                    this.setState({ redirectToReferrer: true });
+                } else {
+                    this.setState({ feedbackMessage: `User with email address "${this.state.email}" already exists.` });
                 }
+            }).catch((err) => {
+                console.log(err);
             });
     }
 
@@ -47,12 +37,9 @@ class Login extends Component {
     }
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: '/admin' } };
-        const { redirectToReferrer, checkingLogin } = this.state;
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        const { redirectToReferrer } = this.state;
 
-        if (checkingLogin) {
-            return <IndeterminateProgress message="Checking Login Status..." />;
-        }
         if (redirectToReferrer) {
             return (
                 <Redirect to={from} />
@@ -61,8 +48,7 @@ class Login extends Component {
 
         return (
             <div className="container-fluid w-75">
-                <p>Log in to access Admin controls.</p>
-                <form onSubmit={(e) => this.login(e)}>
+                <form onSubmit={(e) => this.signup(e)}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input id="email" className="form-control" type="email" onChange={(e) => this.handleEmailChange(e.target.value)} required />
@@ -74,7 +60,7 @@ class Login extends Component {
                     {this.state.feedbackMessage ? (
                         <p>{this.state.feedbackMessage}</p>
                     ) : null}
-                    <input type="submit" value="Login" className="btn btn-primary" />
+                    <input type="submit" value="Sign up" className="btn btn-primary" />
                 </form>
             </div>
         );

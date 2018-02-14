@@ -29,6 +29,7 @@ class blogForm extends Component {
 
         tags = tags.filter((tag) => {
             tag = tag.toLowerCase();
+            tag = tag.trim();
 
             if (!!hash[tag]) {
                 return false;
@@ -89,7 +90,7 @@ class blogForm extends Component {
                             }
                         }}
                         type="button"
-                        className="btn btn-primary btn-block"
+                        className="btn btn-primary btn-lg btn-block"
                     >
                         Submit
                     </button>

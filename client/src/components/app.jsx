@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import PrivateRoute from "./auth/PrivateRoute";
 import Header from "./header";
+import Home from "./home";
 import Blogs from "./blogs";
 import Blog from "./blog";
 import Login from "./auth/login";
 import Logout from "./auth/logout";
+import Signup from "./auth/signup";
+import Admin from "./Admin";
 
 class App extends Component {
 
@@ -14,10 +18,17 @@ class App extends Component {
                 <Fragment>
                     <Header />
                     <Switch>
-                        <Route path="/login" component={Login} />
-                        <Route path="/logout" component={Logout} />
-                        <Route exact path="/" component={Blogs} />
+
+                        <Route exact path="/" component={Home} />
                         <Route exact path="/blogs/:id" component={Blog} />
+
+                        <Route exact path="/signup" component={Signup} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/logout" component={Logout} />
+
+                        <PrivateRoute exact path="/admin" component={Blogs} />
+                        <PrivateRoute exact path="/admin/blogs/:id" component={Blog} />
+
                     </Switch>
                 </Fragment>
             </Router>

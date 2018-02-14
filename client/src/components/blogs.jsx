@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AuthButton from "./auth/authButton";
 import BlogForm from "./blogForm";
 import BlogList from "./blogList";
 import * as userServices from "../services/user";
@@ -46,20 +45,11 @@ class Blogs extends Component {
             });
     }
 
-    renderForm() {
-        if (userServices.isLoggedIn()) {
-            return <BlogForm postBlog={(title, content, tags) => { this.postBlog(title, content, tags); }} />;
-        }
-        else {
-            return <AuthButton />;
-        }
-    }
-
     render() {
         return (
             <div className="container-fluid w-75">
                 <div className="row">
-                    {this.renderForm()}
+                    <BlogForm postBlog={(title, content, tags) => { this.postBlog(title, content, tags); }} />
                     <BlogList blogs={this.state.blogs} />
                 </div>
             </div>

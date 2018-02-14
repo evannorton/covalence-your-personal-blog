@@ -2,6 +2,10 @@ import * as baseService from './base';
 
 let loggedIn = false;
 
+function getUsers() {
+    return baseService.get("/api/users");
+}
+
 function isLoggedIn() {
     return loggedIn;
 }
@@ -50,8 +54,17 @@ function logout() {
     loggedIn = false;
 }
 
+function signup(email, password) {
+    return baseService.post('/api/users', { email, password })
+        .then(() => {
+            return true;
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
 function me() {
     return baseService.get('/api/users/me');
 }
 
-export { isLoggedIn, checkLogin, login, logout };
+export { isLoggedIn, checkLogin, login, logout, signup, getUsers };

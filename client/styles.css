@@ -66,3 +66,7 @@ a:hover {
     margin-right: .25em;
     margin-left: .25em;
 }
+
+#welcome {
+    height: 38em;
+}

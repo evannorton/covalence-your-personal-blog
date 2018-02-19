@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Table from "../table";
 import { tokenMiddleware, isLoggedIn } from '../middleware/auth.mw';
+import { generateHash } from "../utils/security";
 
 let router = Router();
 let users = new Table("Users");
@@ -31,15 +32,20 @@ router.get("/id?", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let user = {
-        email: req.body.email,
-        password: req.body.password
-    };
-    users.insert(user)
-        .then((result) => {
-            res.send(result);
+    generateHash(req.body.password)
+        .then((hash) => {
+            let user = {
+                email: req.body.email,
+                hash
+            };
+            users.insert(user)
+                .then((result) => {
+                    res.send(result);
+                }).catch((err) => {
+                    res.sendStatus(500);
+                })
         }).catch((err) => {
-            res.sendStatus(500);
+            console.log(err);
         })
 });
 

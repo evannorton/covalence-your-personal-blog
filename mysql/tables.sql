@@ -1,5 +1,4 @@
 drop table Tokens;
-
 drop table Users;
 drop table Blogs;
 drop table Tags;
@@ -7,8 +6,8 @@ drop table BlogTags;
 
 create table Users (
 	id int not null auto_increment primary key,
-    email text not null,
-    password text not null,
+    email varchar(45) not null unique,
+    hash varchar(60) not null,
     _created datetime default current_timestamp);
     
 create table Tokens (

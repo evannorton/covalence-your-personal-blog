@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import { generateHash } from "../utils/security";
 
 let router = Router();
 

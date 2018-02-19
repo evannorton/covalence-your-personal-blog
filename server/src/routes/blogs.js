@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import Table from "../table";
+import { tags } from "./tags";
 
 let router = Router();
 
 let blogs = new Table("Blogs");
-let tags = new Table("Tags");
 let blogtags = new Table("BlogTags");
 
 

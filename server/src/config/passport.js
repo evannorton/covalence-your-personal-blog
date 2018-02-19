@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as BearerStrategy } from "passport-http-bearer";
 import Table from "../table";
 import { encode, decode } from "../utils/tokens";
+import { checkPassword } from "../utils/security";
 
 let usersTable = new Table("Users");
 let tokensTable = new Table("Tokens");
@@ -16,13 +17,24 @@ function configurePassport(app) {
         usersTable.find({ email })
             .then((results) => {
                 return results[0]
-            }).then((result) => {
-                if (result && result.password && result.password === password) {
-                    tokensTable.insert({ userid: result.id })
-                        .then((idObj) => {
-                            return encode(idObj.id);
-                        }).then((token) => {
-                            return done(null, { token });
+            }).then((user) => {
+                if (user && user.hash) {
+                    checkPassword(password, user.hash)
+                        .then((matches) => {
+                            if (matches) {
+                                //password is correct
+                                tokensTable.insert({ userid: user.id })
+                                    .then((idObj) => {
+                                        return encode(idObj.id);
+                                    }).then((token) => {
+                                        return done(null, { token });
+                                    });
+                            } else {
+                                //password is incorrect
+                                return done(null, false, { message: "Invalid login" });
+                            }
+                        }).catch((err) => {
+                            throw err;
                         });
                 } else {
                     return done(null, false, { message: "Invalid login" });

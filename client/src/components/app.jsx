@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import PrivateRoute from "./auth/PrivateRoute";
+import PrivateRoute from "./auth/privateRoute";
 import Header from "./header";
 import Home from "./home";
 import Blogs from "./blogs";

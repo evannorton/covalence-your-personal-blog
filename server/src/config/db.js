@@ -1,12 +1,19 @@
 import mysql from 'mysql';
 
+let env = process.env;
+
+if (!env.DB_HOST) {
+    env = require('./config').default;
+}
+
+
 let pool = mysql.createPool({
     connectionLimit: 10,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: 4000
+    host: env.DB_HOST,
+    user: env.DB_USER,
+    password: env.DB_PASS,
+    database: env.DB_NAME,
+    port: 3306
 });
 
 function executeQuery(sql, args = []) {

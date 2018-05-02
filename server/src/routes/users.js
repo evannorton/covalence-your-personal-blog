@@ -10,7 +10,7 @@ router.get('/me', tokenMiddleware, isLoggedIn, (req, res) => {
     res.json(req.user);
 });
 
-router.get("/id?", (req, res) => {
+router.get("/:id?", (req, res) => {
     let id = req.params.id;
     if (id) {
         users.getOne(id)
